@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize(process.env.PIKACHU_DB, process.env.PIKACHU_USER,
+const sequelize = new Sequelize(
+  process.env.PIKACHU_DB,
+  process.env.PIKACHU_USER,
   process.env.PIKACHU_PW,
 
   {
