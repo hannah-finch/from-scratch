@@ -1,14 +1,31 @@
 const router = require('express').Router();
 const Task = require('../../models/task');
 
-router.post('/', async (req, res) => {
-  const newTask = Task.create({
-    name: 'Do a thing',
-    description: 'Just do it',
-    status: 'todo'
-  });
+router.get('/', async(req, res) => {
+  try {
+    const allTasks = await Task.findAll();
 
-  res.json(newTask);
+    res.status(200).json(allTasks);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const newTask = await Task.create({
+      name: req.body.name,
+      description: req.body.description,
+      status: req.body.status
+    })
+    if (newTask) {
+      res.status(200).json(newTask);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+
 })
 
 module.exports = router;
